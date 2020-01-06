@@ -2,13 +2,11 @@ package tp.pokemonTypes.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tp.pokemonTypes.bo.PokemonType;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import tp.trainers.bo.Trainer;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,21 +15,32 @@ public class PokemonTypeServiceImpl implements PokemonTypeService {
     RestTemplate restTemplate ;
     String pokemonServiceUrl;
 
-    @Cacheable("pokemon-types")
     public List<PokemonType> listPokemonsTypes() {
 
-        PokemonType[] result=restTemplate.getForObject(this.pokemonServiceUrl+"/pokemon-types/",PokemonType[].class);
-        return Arrays.asList(result) ;
+        PokemonType[] resultat= restTemplate.getForObject(pokemonServiceUrl+"/pokemon-types/", PokemonType[].class);
+        if(resultat==null)
+        {
+         System.out.println(("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"));
+        }
+        List<PokemonType> list=new ArrayList<>();
+        for( PokemonType pokemonType : resultat){
+            list.add(pokemonType);
+        }
+        return list;
+
     }
 
-    @Cacheable("pokemon-types")
-    public PokemonType getPokemonType(int id){
+
+
+    @Override
+    public PokemonType getPokemonType(String id){
         PokemonType result=restTemplate.getForObject(
                 this.pokemonServiceUrl+"/{id}",PokemonType.class,id
         );
         return result;
 
     }
+
 
     @Autowired
     public void setRestTemplate(RestTemplate restTemplate) {

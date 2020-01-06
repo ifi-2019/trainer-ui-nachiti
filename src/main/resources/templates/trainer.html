@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+{{> layout/header}}
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="http://localhost:9000/pokedex">
+                <img src="/images/icons/pokeball.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Pokedex
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://localhost:9000/trainers">
+                <img src="/images/icons/player.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Trainers
+            </a>
+        </li>
+    </ul>
+
+    {{#user}}
+    <span class="navbar-text mr-md-3">Welcome {{username}}</span>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="../profile">
+                <img src="/images/icons/player.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                My Profile
+            </a>
+        </li>
+    </ul>
+    <form class="form-inline" action="/logout" method="post">
+        <input type="submit" class="btn btn-outline-warning my-2 my-sm-0" value="Sign Out"/>
+        <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}"/>
+    </form>
+    {{/user}}
+</nav>
+
+<div class="container">
+    <h1 class="pt-md-5 pb-md-5">Trainer : {{trainer.name}} </h1>
+
+    <div class="card-deck">
+        {{#trainer.team}}
+        <div class="col-md-3">
+            <div class="card shadow-sm mb-3">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal" style="text-transform: capitalize;">{{type.name}}
+                        <span class="badge badge-secondary">Level {{level}}</span>
+                    </h4>
+                </div>
+                <img class="card-img-top" src="{{type.sprites.front_default}}" alt="Pokemon"/>
+                <div class="card-body">
+                    <span class="badge badge-primary">Speed : {{type.stats.speed}}</span>
+                    <span class="badge badge-primary">Attack : {{type.stats.attack}}</span>
+                    <span class="badge badge-primary">Defense : {{type.stats.defense}}</span>
+                    <span class="badge badge-primary">HP : {{type.stats.hp}}</span>
+                </div>
+            </div>
+        </div>
+        {{/trainer.team}}
+    </div>
+
+
+</div>
+
+
+</body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</html>

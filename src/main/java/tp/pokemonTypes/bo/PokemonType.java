@@ -7,7 +7,9 @@ public class PokemonType {
     private String name;
     private Sprites sprites;
     private Stats stats;
+    private String pokemonType;
     private String type;
+    private String level;
     public void setId(int id) {
         this.id = id;
     }
@@ -65,8 +67,24 @@ public class PokemonType {
     }
 
     private int weight;
+    public String getPokemonType() {
+        return pokemonType;
+    }
+
+    public void setPokemonType(String pokemonType, String level) {
+        this.pokemonType = pokemonType;
+        this.level=level;
+    }
 
     public String getType() {
         return type;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }
